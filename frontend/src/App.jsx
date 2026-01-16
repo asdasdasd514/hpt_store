@@ -1,38 +1,68 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Home from "./pages/home/Home";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
-function App() {
-  const [count, setCount] = useState(0);
+import ProtectedRoute from "./auth/ProtectedRoute";
 
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/Dashboard";
+import Employees from "./pages/admin/Employees";
+import Revenue from "./pages/admin/Revenue";
+
+import StaffLayout from "./pages/staff/StaffLayout";
+import Orders from "./pages/staff/Orders";
+import Products from "./pages/staff/Products";
+import Posts from "./pages/staff/Posts";
+
+import Chatbot from "./components/ChatBot";
+
+export default function App() {
+  const location = useLocation();
+
+  // Kiểm tra xem người dùng có đang ở trang Quản trị (Admin) hay Nhân viên (Staff) không
+  // Nếu đường dẫn bắt đầu bằng /admin hoặc /staff thì sẽ ẩn Chatbot
+  const isManagementPage =
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/staff");
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <h1 className="text-3xl font-bold underline text-red-500">
-        Hello Tailwind v4!
-      </h1>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* ADMIN */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<AdminDashboard />} />
+          <Route path="employees" element={<Employees />} />
+          <Route path="revenue" element={<Revenue />} />
+        </Route>
+
+        {/* STAFF */}
+        <Route
+          path="/staff"
+          element={
+            <ProtectedRoute role="staff">
+              <StaffLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="orders" element={<Orders />} />
+          <Route path="products" element={<Products />} />
+          <Route path="posts" element={<Posts />} />
+        </Route>
+      </Routes>
+
+      {/* Chỉ hiển thị Chatbot nếu KHÔNG PHẢI là trang quản lý */}
+      {!isManagementPage && <Chatbot />}
     </>
   );
 }
-
-export default App;
