@@ -45,14 +45,24 @@ namespace backend.Controllers
         {
             var user = _db.Users.FirstOrDefault(x => x.Username == dto.Username);
             if (user == null)
-                return Unauthorized();
+                return Unauthorized("Invalid credentials");
+
+            if (user.IsLocked)
+                return Unauthorized("Account is locked");
 
             if (!Verify(dto.Password, user.PasswordHash))
-                return Unauthorized();
+                return Unauthorized("Invalid credentials");
 
             var token = _jwt.GenerateToken(user);
-            return Ok(new { token, role = user.Role });
+
+            return Ok(new
+            {
+                token,
+                role = user.Role,
+                username = user.Username
+            });
         }
+
 
         // ====== HASH ======
         private string HashPassword(string password)
