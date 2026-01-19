@@ -42,7 +42,10 @@ export default function Navbar() {
           <SearchIcon className="absolute right-2 top-1 text-gray-500" />
         </div>
         <div className="flex gap-4">
-          <Link to="../login"><PersonIcon />Đăng nhập</Link>
+          <Link to="../login">
+            <PersonIcon />
+            Đăng nhập
+          </Link>
           <Link to="../register">Đăng ký</Link>
         </div>
         <div className="relative">
