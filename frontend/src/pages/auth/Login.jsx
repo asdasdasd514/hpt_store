@@ -21,25 +21,44 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-20 border p-6 rounded">
-      <h2 className="text-xl font-bold mb-4">Đăng nhập</h2>
+    // ✅ WRAPPER căn giữa màn hình
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="w-full max-w-md border border-[#0A1F44] p-8 rounded-xl">
+        <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1F44]">
+          Đăng nhập
+        </h2>
 
-      <form onSubmit={submit}>
-        <input
-          className="input"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          className="input mt-3"
-          placeholder="Mật khẩu"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="btn mt-4 w-full">Đăng nhập</button>
-      </form>
+        <form onSubmit={submit} className="flex flex-col gap-4">
+          {/* EMAIL */}
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full border border-[#0A1F44] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0A1F44]"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <GoogleLoginButton />
+          {/* PASSWORD */}
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            className="w-full border border-[#0A1F44] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0A1F44]"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          {/* BUTTON LOGIN */}
+          <button
+            type="submit"
+            className="w-full mt-2 bg-[#0A1F44] hover:bg-[#081833] text-white font-semibold py-2 rounded-lg transition"
+          >
+            Đăng nhập
+          </button>
+        </form>
+
+        {/* GOOGLE LOGIN */}
+        <div className="mt-4">
+          <GoogleLoginButton />
+        </div>
+      </div>
     </div>
   );
 }
