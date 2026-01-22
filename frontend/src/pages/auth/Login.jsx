@@ -21,7 +21,6 @@ export default function Login() {
   };
 
   return (
-    // ✅ WRAPPER căn giữa màn hình
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md border border-[#0A1F44] p-8 rounded-xl">
         <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1F44]">
