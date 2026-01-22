@@ -33,7 +33,6 @@ export default function Register() {
   };
 
   return (
-    // 👇 wrapper căn giữa màn hình
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md border p-6 rounded shadow">
         <h2 className="text-2xl font-bold mb-4 text-center">
