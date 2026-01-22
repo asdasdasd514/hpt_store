@@ -6,9 +6,14 @@ import { AuthProvider } from "./auth/AuthContext";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <React.StrictMode>
     <AuthProvider>
-      <App />
+      <BrowserRouter>
+        {/* ROOT WRAPPER – RẤT QUAN TRỌNG */}
+        <div className="min-h-screen bg-white">
+          <App />
+        </div>
+      </BrowserRouter>
     </AuthProvider>
-  </BrowserRouter>
+  </React.StrictMode>
 );

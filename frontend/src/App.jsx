@@ -20,14 +20,15 @@ import Chatbot from "./components/ChatBot";
 export default function App() {
   const location = useLocation();
 
-  // Kiểm tra xem người dùng có đang ở trang Quản trị (Admin) hay Nhân viên (Staff) không
-  // Nếu đường dẫn bắt đầu bằng /admin hoặc /staff thì sẽ ẩn Chatbot
+  // Ẩn chatbot ở trang admin & staff
   const isManagementPage =
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/staff");
+
   return (
-    <>
+    <div className="min-h-screen bg-white">
       <Routes>
+        {/* USER */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -61,8 +62,8 @@ export default function App() {
         </Route>
       </Routes>
 
-      {/* Chỉ hiển thị Chatbot nếu KHÔNG PHẢI là trang quản lý */}
+      {/* Chatbot chỉ hiện ở USER */}
       {!isManagementPage && <Chatbot />}
-    </>
+    </div>
   );
 }
